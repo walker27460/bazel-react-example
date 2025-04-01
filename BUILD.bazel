@@ -1,0 +1,28 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//:@rsbuild/core/package_json.bzl", rsbuild_bin = "bin")
+npm_link_all_packages(
+  name="node_modules"
+)
+
+BUILD_DEPS = [":node_modules/" + n for n in [
+  "react",
+  "react-dom",
+  "@chakra-ui/react",
+  "@rsbuild/core",
+  "@rsbuild/plugin-react"
+]]
+
+CONFIGS = [
+    "rsbuild.config.js",
+    "package.json",
+    "tsconfig.json"
+]
+
+rsbuild_bin.rsbuild(
+  name="bundle",
+  srcs=BUILD_DEPS + CONFIGS + [":src/index.tsx", ":src/App.tsx"],
+  args = ["build --config rsbuild.config.js"],
+  chdir = package_name(),
+  out_dirs = ["dist"],
+  visibility = ["//visibility:public"],
+)

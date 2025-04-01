@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@/*":["./src/*"]
+    },
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+  }
+}
